@@ -1,28 +1,41 @@
 @model EmployeeSerializer.Models.Employee;
 @{
     List<Employee>? employees = ViewBag.employees;
+    string error = ViewBag.error;
 
     bool isEmployeesListEmpty = employees == null || employees.Count() == 0;
+    bool showError = error != null && !error.Equals("");
 }
 
-<select id="serialization_select" name="serialization_select" class="mb-3">
-	<option value="txt">Text File</option>
-	<option value="xml">XML</option>
-	<option value="json">JSON</option>
-</select>
-
 <a asp-controller="Employee" asp-action="Add" class="btn button-success mb-3">Add Employee</a>
+
+@if(showError){
+    <div class="alert alert-danger mb-3" role="alert">
+        @error
+    </div>
+}
 
 @if(isEmployeesListEmpty){
     <p class="display-6">
         There are no employees added
+    using EmployeeSerializer.Services;
     </p>
     <span class="fs-6 text-secondary">Please add some employees</span>
 }else{
     <ul id="employees_list">
         @foreach(var employee in employees!){
             <li>
-                @employee.EmployeeName;
+                <div>
+                    <cite>@employee.EmployeeName</cite>
+                    <span class="mb-1" style="display: block;">@employee.Id</span>
+                    <p>@employee.EmployeeDepartment</p>
+                </div>
+                <div class="align-items-center fw-bolder fs-5">
+                    Rs. @employee.EmployeeSalary
+                </div>
+                <div class="align-items-center">
+                    <a class="btn btn-outline-danger button-delete" asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">Delete</a>
+                </div>
             </li>
         }
     </ul>

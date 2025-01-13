@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeSerializer.Models;
 
+[Serializable]
 public class Employee
 {
     [Required]
@@ -17,4 +18,6 @@ public class Employee
 
     [Required]
     public double EmployeeSalary {get; set;}
+
+    public string? SerialType {get; set;}
 }

@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using EmployeeSerializer.Models;
+using EmployeeSerializer.Services;
 
 namespace EmployeeSerializer.Controllers;
 
@@ -13,8 +14,9 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(Serializer serial)
     {
+        SerializerService.SetType(serial.SerialType!);
         return View();
     }
 

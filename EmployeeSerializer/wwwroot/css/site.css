@@ -67,3 +67,9 @@ main {
   border-radius: 0.5rem;
   outline: none;
 }
+
+.button-delete {
+  height: 3rem;
+  display: grid;
+  align-items: center;
+}

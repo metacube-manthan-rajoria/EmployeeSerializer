@@ -26,7 +26,18 @@ public class EmployeeController : Controller
 
     [HttpPost]
     public IActionResult Add(Employee newEmployee){
-        EmployeeService.AddEmployee(newEmployee);
+        if(ModelState.IsValid){
+            newEmployee.Id = Guid.NewGuid();
+            EmployeeService.AddEmployee(newEmployee);
+        }else{
+            ViewBag.error = "Employee not added - Enter valid details.";
+        }
+        ViewBag.employees = EmployeeService.GetEmployeeList();
+        return View("Index");
+    }
+
+    public IActionResult Delete(Guid id){
+        EmployeeService.RemoveEmployee(id);
         ViewBag.employees = EmployeeService.GetEmployeeList();
         return View("Index");
     }

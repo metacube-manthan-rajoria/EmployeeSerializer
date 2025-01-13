@@ -1,6 +1,13 @@
-﻿<div class="hero text-center">
+﻿@model EmployeeSerializer.Models.Serializer;
+<div class="hero text-center">
     <h1 class="display-4">Welcome</h1>
     <p class="mb-5">Keep track of your employees</p>
+
+    <select id="serialization_select" name="SerialType" class="mb-3">
+        <option value="txt">Text File</option>
+        <option value="xml">XML</option>
+        <option value="json">JSON</option>
+    </select>
 
     <a class="btn button-success" asp-controller="Employee" asp-action="Index">View Employees</a>
 </div>
