@@ -67,8 +67,3 @@ main {
   border-radius: 0.5rem;
   outline: none;
 }
-
-#employees_list{
-  border: 1px solid black;
-  border-radius: 1rem;
-}

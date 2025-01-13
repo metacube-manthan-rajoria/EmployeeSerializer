@@ -1,14 +1,11 @@
 @model EmployeeSerializer.Models.Employee;
-@{
-    
-}
 
 <form action="@Url.Action("Add","Employee")" method="post">
     <div id="employee_form">
-        <input type="hidden" name="FriendId" value="@friend_id">
-        <input type="text" name="FriendName" id="FriendNameInput" placeholder="Friend Name" value="@friend_name">
-        <input type="text" name="Place" id="PlaceInput" placeholder="Place" value="@friend_place">
+        <input type="text" name="FriendName" id="FriendNameInput" placeholder="Friend Name">
+        <input type="text" name="Place" id="PlaceInput" placeholder="Place">
+        <input type="number" name="Salary" id="SalaryInput" placeholder="Salary">
 
-        <button>Friend</button>
+        <button>Add Employee</button>
     </div>
 </form>
