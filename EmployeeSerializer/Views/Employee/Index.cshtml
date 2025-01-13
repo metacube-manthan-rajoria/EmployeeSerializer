@@ -1,0 +1,21 @@
+@model EmployeeSerializer.Models.Employee;
+@{
+    List<Employee>? employees = ViewBag.employees;
+
+    bool isEmployeesListEmpty = employees == null || employees.Count() == 0;
+}
+
+@if(isEmployeesListEmpty){
+    <p class="display-6">
+        There are no employees added
+    </p>
+    <span class="fs-6 text-secondary">Please add some employees</span>
+}else{
+    <ul>
+        @foreach(var employee in employees!){
+            <li>
+                @employee.EmployeeName;
+            </li>
+        }
+    </ul>
+}
