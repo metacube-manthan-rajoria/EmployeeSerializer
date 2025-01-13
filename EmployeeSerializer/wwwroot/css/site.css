@@ -18,7 +18,9 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -28,6 +30,11 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+/* Custom CSS */
+main {
+  display: grid;
 }
 
 .hero {
@@ -42,11 +49,26 @@ body {
   border-radius: 0.5rem;
   padding: 1rem;
   min-width: 15rem;
-  height: 5rem;
+  height: 4rem;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .button-success:hover {
   background-color: limegreen;
   color: white;
+}
+
+#serialization_select {
+  justify-self: center;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  outline: none;
+}
+
+#employees_list{
+  border: 1px solid black;
+  border-radius: 1rem;
 }
