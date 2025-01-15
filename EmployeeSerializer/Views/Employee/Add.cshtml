@@ -3,11 +3,11 @@
 <form action="@Url.Action("Add","Employee")" method="post">
     <div id="employee_form">
         <input asp-for="EmployeeName" placeholder="Employee Name">
-        <span asp-validation-for="EmployeeName"></span>
+        <span asp-validation-for="EmployeeName" class="text-danger"></span>
         <input asp-for="EmployeeDepartment" placeholder="Employee Department">
-        <span asp-validation-for="EmployeeDepartment"></span>
+        <span asp-validation-for="EmployeeDepartment" class="text-danger"></span>
         <input asp-for="EmployeeSalary" placeholder="Salary">
-        <span asp-validation-for="EmployeeSalary"></span>
+        <span asp-validation-for="EmployeeSalary" class="text-danger"></span>
 
         <button>Add Employee</button>
     </div>
