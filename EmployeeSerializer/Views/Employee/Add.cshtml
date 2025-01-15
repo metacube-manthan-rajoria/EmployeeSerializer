@@ -2,9 +2,12 @@
 
 <form action="@Url.Action("Add","Employee")" method="post">
     <div id="employee_form">
-        <input type="text" name="EmployeeName" id="EmployeeNameInput" placeholder="Employee Name">
-        <input type="text" name="EmployeeDepartment" id="EmployeeDepartmentInput" placeholder="Employee Department">
-        <input type="number" name="EmployeeSalary" id="EmployeeSalaryInput" placeholder="Salary">
+        <input asp-for="EmployeeName" placeholder="Employee Name">
+        <span asp-validation-for="EmployeeName"></span>
+        <input asp-for="EmployeeDepartment" placeholder="Employee Department">
+        <span asp-validation-for="EmployeeDepartment"></span>
+        <input asp-for="EmployeeSalary" placeholder="Salary">
+        <span asp-validation-for="EmployeeSalary"></span>
 
         <button>Add Employee</button>
     </div>

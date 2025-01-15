@@ -24,7 +24,7 @@ public class SerializerService
     public static bool SerializeData(List<Employee> employees){
         switch(serializationType){
             case "txt":
-                return SerializeXML(employees);
+                return SerializeTXT(employees);
             case "xml":
                 return SerializeXML(employees);
             case "json":
@@ -37,7 +37,7 @@ public class SerializerService
     public static List<Employee> DeserializeData(){
         switch(serializationType){
             case "txt":
-                return DeserializeXML();
+                return DeserializeTXT();
             case "xml":
                 return DeserializeXML();
             case "json":
@@ -101,11 +101,10 @@ public class SerializerService
         }
         return true;
     } 
-
     public static List<Employee> DeserializeJSON(){
         try{
             string data = File.ReadAllText("employee.json");
-            var result = JsonSerializer.Deserialize<List<Employee>>(data);
+            var result = JsonSerializer.Deserialize<List<Employee>>(data.ToString());
 
             if(result == null || result.Count == 0){
                 return new List<Employee>();
@@ -114,5 +113,40 @@ public class SerializerService
         }catch(FileNotFoundException){
             return new List<Employee>();
         }
-    } 
+    }
+
+    public static bool SerializeTXT(List<Employee> employees){
+        string data = "";
+        foreach(var employee in employees){
+            data += employee.Id + ", ";
+            data += employee.EmployeeName??"".Replace(",", "") + ", ";
+            data += employee.EmployeeDepartment??"".Replace(",", "") + ", ";
+            data += employee.EmployeeSalary + "\n";
+        }
+
+        try
+        {
+            File.WriteAllText("employee.txt", data);
+        }catch{
+            return false;
+        }
+        return true;
+    }
+    public static List<Employee> DeserializeTXT(){
+        try{
+            List<Employee> employees = new List<Employee>();
+            foreach (string line in File.ReadLines("employee.txt")){
+                string[] data = line.Split(',');
+                employees.Add(new Employee{
+                    Id = Guid.Parse(data[0]),
+                    EmployeeName = data[1],
+                    EmployeeDepartment = data[2],
+                    EmployeeSalary = Double.Parse(data[3])
+                });
+            }
+            return employees;
+        }catch(FileNotFoundException){
+            return new List<Employee>();
+        }
+    }
 }
