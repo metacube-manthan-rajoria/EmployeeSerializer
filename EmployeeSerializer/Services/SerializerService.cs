@@ -119,8 +119,8 @@ public class SerializerService
         string data = "";
         foreach(var employee in employees){
             data += employee.Id + ", ";
-            data += employee.EmployeeName??"".Replace(",", "") + ", ";
-            data += employee.EmployeeDepartment??"".Replace(",", "") + ", ";
+            data += (employee.EmployeeName??"".Replace(",", "")) + ", ";
+            data += (employee.EmployeeDepartment??"".Replace(",", "")) + ", ";
             data += employee.EmployeeSalary + "\n";
         }
 
@@ -135,8 +135,10 @@ public class SerializerService
     public static List<Employee> DeserializeTXT(){
         try{
             List<Employee> employees = new List<Employee>();
-            foreach (string line in File.ReadLines("employee.txt")){
+            var lines = File.ReadLines("employee.txt");
+            foreach (var line in lines){
                 string[] data = line.Split(',');
+                if(data.Length < 4) continue;
                 employees.Add(new Employee{
                     Id = Guid.Parse(data[0]),
                     EmployeeName = data[1],
