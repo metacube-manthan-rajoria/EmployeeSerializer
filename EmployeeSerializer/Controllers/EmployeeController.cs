@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using EmployeeSerializer.Models;
 using EmployeeSerializer.Services;
+using EmployeeSerializer.Filters;
 
 namespace EmployeeSerializer.Controllers;
 
@@ -15,6 +16,7 @@ public class EmployeeController : Controller
     }
 
     [HttpPost]
+    [ClearEmployeeData]
     public IActionResult Index(Serializer serial)
     {
         // Reading data from file
@@ -52,7 +54,7 @@ public class EmployeeController : Controller
 
         // Saving Data to file
         SerializerService.SerializeData(EmployeeService.GetEmployeeList());
-        
+
         ViewBag.employees = EmployeeService.GetEmployeeList();
         return View("Index");
     }

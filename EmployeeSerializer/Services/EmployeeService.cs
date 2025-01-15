@@ -43,4 +43,8 @@ public class EmployeeService
         }
         return null;
     }
+
+    public static void ClearEmployeeList(){
+        employees.Clear();
+    }
 }
