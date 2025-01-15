@@ -88,10 +88,7 @@ public class SerializerService
     }
     
     public static bool SerializeJSON(List<Employee> employees){
-        JsonSerializerOptions options = new(JsonSerializerDefaults.Web){
-            WriteIndented = true
-        };
-        var result = JsonSerializer.Serialize<List<Employee>>(employees, options);
+        var result = JsonSerializer.Serialize<List<Employee>>(employees);
 
         try
         {
@@ -104,13 +101,15 @@ public class SerializerService
     public static List<Employee> DeserializeJSON(){
         try{
             string data = File.ReadAllText("employee.json");
-            var result = JsonSerializer.Deserialize<List<Employee>>(data.ToString());
+            if(data.Length==0) return new List<Employee>();
+
+            var result = JsonSerializer.Deserialize<List<Employee>>(data);
 
             if(result == null || result.Count == 0){
                 return new List<Employee>();
             }
             return result;
-        }catch(FileNotFoundException){
+        }catch(Exception){
             return new List<Employee>();
         }
     }
