@@ -111,12 +111,16 @@ public class SerializerService
     } 
 
     public static List<Employee> DeserializeJSON(){
-        string data = File.ReadAllText("employee.json");
-        var result = JsonSerializer.Deserialize<List<Employee>>(data);
+        try{
+            string data = File.ReadAllText("employee.json");
+            var result = JsonSerializer.Deserialize<List<Employee>>(data);
 
-        if(result == null || result.Count == 0){
+            if(result == null || result.Count == 0){
+                return new List<Employee>();
+            }
+            return result;
+        }catch(FileNotFoundException){
             return new List<Employee>();
         }
-        return result;
     } 
 }
