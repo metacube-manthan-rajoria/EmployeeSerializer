@@ -3,5 +3,5 @@ obj
 bin
 
 employee.xml
-employee.binary
+employee.json
 employee.txt
