@@ -7,7 +7,7 @@
     bool showError = error != null && !error.Equals("");
 }
 
-<a asp-controller="Employee" asp-action="Add" class="btn button-success mb-3">Add Employee</a>
+<a asp-controller="Employee" asp-action="Add" class="btn button-success mb-4">Add Employee</a>
 
 @if(showError){
     <div class="alert alert-danger mb-3" role="alert">
@@ -21,21 +21,22 @@
     </p>
     <span class="fs-6 text-secondary">Please add some employees</span>
 }else{
-    <ul id="employees_list" class="mb-5">
+    <table id="employees_list" class="mb-5">
+        <tr class="border-bottom border-black">
+            <th>Employee Name</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th></th>
+        </tr>
         @foreach(var employee in employees!){
-            <li>
-                <div>
-                    <cite>@employee.EmployeeName</cite>
-                    <span class="mb-1" style="display: block;">@employee.Id</span>
-                    <p>@employee.EmployeeDepartment</p>
-                </div>
-                <div class="align-items-center fw-bolder fs-5">
-                    Rs. @employee.EmployeeSalary
-                </div>
-                <div class="align-items-center">
+            <tr class="border-bottom" style="height: 4rem;">
+                <td>@employee.EmployeeName</td>
+                <td>@employee.EmployeeDepartment</td>
+                <td>Rs. @employee.EmployeeSalary</td>
+                <td class="align-items-center">
                     <a class="btn btn-outline-danger button-delete" asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">Delete</a>
-                </div>
-            </li>
+                </td>
+            </tr>
         }
-    </ul>
+    </table>
 }
