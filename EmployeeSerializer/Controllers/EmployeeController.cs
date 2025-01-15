@@ -17,7 +17,13 @@ public class EmployeeController : Controller
     [HttpPost]
     public IActionResult Index(Serializer serial)
     {
+        // Reading data from file
         SerializerService.SetType(serial.SerialType!);
+        List<Employee> empList = SerializerService.DeserializeData();
+        foreach(var employee in empList){
+            EmployeeService.AddEmployee(employee);
+        }
+
         ViewBag.employees = EmployeeService.GetEmployeeList();
         return View();
     }
@@ -31,6 +37,8 @@ public class EmployeeController : Controller
         if(ModelState.IsValid){
             newEmployee.Id = Guid.NewGuid();
             EmployeeService.AddEmployee(newEmployee);
+
+            // Saving Data to file
             SerializerService.SerializeData(EmployeeService.GetEmployeeList());
         }else{
             ViewBag.error = "Employee not added - Enter valid details.";
@@ -41,6 +49,10 @@ public class EmployeeController : Controller
 
     public IActionResult Delete(Guid id){
         EmployeeService.RemoveEmployee(id);
+
+        // Saving Data to file
+        SerializerService.SerializeData(EmployeeService.GetEmployeeList());
+        
         ViewBag.employees = EmployeeService.GetEmployeeList();
         return View("Index");
     }

@@ -28,7 +28,7 @@ public class SerializerService
             case "xml":
                 return SerializeXML(employees);
             case "json":
-                return SerializeXML(employees);
+                return SerializeJSON(employees);
             default:
                 return SerializeXML(employees);
         }
@@ -41,7 +41,7 @@ public class SerializerService
             case "xml":
                 return DeserializeXML();
             case "json":
-                return DeserializeXML();
+                return DeserializeJSON();
             default:
                 return DeserializeXML();
         }
@@ -87,25 +87,36 @@ public class SerializerService
         }
     }
     
-    public static bool SerializeBinary(List<Employee> employees){
+    public static bool SerializeJSON(List<Employee> employees){
         var result = JsonSerializer.Serialize<List<Employee>>(employees);
 
-        var mode = FileMode.Create;
-        if(File.Exists("employee.xml")){
-            mode = FileMode.Truncate;
-        }
-        FileStream fs = new FileStream("employee.xml", mode, FileAccess.Write, FileShare.None);
+        // var mode = FileMode.Create;
+        // if(File.Exists("employee.json")){
+        //     mode = FileMode.Truncate;
+        // }
+        // FileStream fs = new FileStream("employee.json", mode, FileAccess.Write, FileShare.None);
+
         try
         {
             // using (fs){
-            //     fs.WriteAsync(result);
-            //     xs.Serialize(fs, employees);
+                File.WriteAllText("employee.json", result);
+                //fs.WriteAsync(result);
             // }
         }catch{
             return false;
         }finally{
-            fs.Close();
+            // fs.Close();
         }
         return true;
+    } 
+
+    public static List<Employee> DeserializeJSON(){
+        string data = File.ReadAllText("employee.json");
+        var result = JsonSerializer.Deserialize<List<Employee>>(data);
+
+        if(result == null || result.Count == 0){
+            return new List<Employee>();
+        }
+        return result;
     } 
 }
