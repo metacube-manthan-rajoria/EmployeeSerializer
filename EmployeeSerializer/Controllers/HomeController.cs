@@ -14,9 +14,8 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index(Serializer serial)
+    public IActionResult Index()
     {
-        SerializerService.SetType(serial.SerialType!);
         return View();
     }
 

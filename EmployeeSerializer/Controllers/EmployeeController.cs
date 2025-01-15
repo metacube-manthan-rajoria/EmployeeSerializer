@@ -14,8 +14,10 @@ public class EmployeeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
+    [HttpPost]
+    public IActionResult Index(Serializer serial)
     {
+        SerializerService.SetType(serial.SerialType!);
         ViewBag.employees = EmployeeService.GetEmployeeList();
         return View();
     }
@@ -29,6 +31,7 @@ public class EmployeeController : Controller
         if(ModelState.IsValid){
             newEmployee.Id = Guid.NewGuid();
             EmployeeService.AddEmployee(newEmployee);
+            SerializerService.SerializeData(EmployeeService.GetEmployeeList());
         }else{
             ViewBag.error = "Employee not added - Enter valid details.";
         }
