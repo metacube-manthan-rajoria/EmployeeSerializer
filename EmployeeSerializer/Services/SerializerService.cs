@@ -88,24 +88,16 @@ public class SerializerService
     }
     
     public static bool SerializeJSON(List<Employee> employees){
-        var result = JsonSerializer.Serialize<List<Employee>>(employees);
-
-        // var mode = FileMode.Create;
-        // if(File.Exists("employee.json")){
-        //     mode = FileMode.Truncate;
-        // }
-        // FileStream fs = new FileStream("employee.json", mode, FileAccess.Write, FileShare.None);
+        JsonSerializerOptions options = new(JsonSerializerDefaults.Web){
+            WriteIndented = true
+        };
+        var result = JsonSerializer.Serialize<List<Employee>>(employees, options);
 
         try
         {
-            // using (fs){
-                File.WriteAllText("employee.json", result);
-                //fs.WriteAsync(result);
-            // }
+            File.WriteAllText("employee.json", result);
         }catch{
             return false;
-        }finally{
-            // fs.Close();
         }
         return true;
     } 
